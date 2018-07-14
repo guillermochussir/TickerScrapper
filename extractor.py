@@ -1,6 +1,5 @@
 import requests
 import pandas as pd
-import sys
 import json
 
 def lector(url):
@@ -18,9 +17,10 @@ def lector(url):
                 print ('tercer error.')
 
 def main():
-    url = "https://fondosonline.com/Operations/Funds/GetFundsProducts?sortColumn=YearPercent&isAscending=false&PageSize=1000&searchFundName=&searchCurrency=-1&searchFocus=-1&searchStrategy=&searchHorizon=-1&searchProfile=-1&isActive=false&searchMinInvestment=&page=1"
-    records = lector(url)
-    records = json.loads(records)
+    with open('urls.json') as f:
+        urls = json.load(f)
+    url = urls["GetFundsProducts"] + urls["GetFundsProductsParams"]
+    records = json.loads(lector(url))
     records = records["records"]
     df = pd.DataFrame.from_records(records)
     if df is not None:
@@ -28,7 +28,7 @@ def main():
         print ('exportando a funds.csv')
         df.to_csv('funds.csv', index=False)
     else:
-    	print ('error. df vacío')
+        print ('error. df vacío')
 
 if __name__ == '__main__':
     main()
