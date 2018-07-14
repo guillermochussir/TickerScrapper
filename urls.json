@@ -1,8 +1,8 @@
 {
-	"GetFundsProducts":"https://fondosonline.com/Operations/Funds/GetFundsProducts",
-	"GetFundsProductsParams":"?sortColumn=YearPercent&isAscending=false&PageSize=1000&searchFundName=&searchCurrency=-1&searchFocus=-1&searchStrategy=&searchHorizon=-1&searchProfile=-1&isActive=false&searchMinInvestment=&page=1",
-	"GetPriceData":"https://fondosonline.com/Information/FundData/GetPriceData?ticker=",
-	"GetIndustryGroupPieData":"https://fondosonline.com/Information/FundData/GetIndustryGroupPieData?ticker=",
-	"GetIndustrySectorPieData":"https://fondosonline.com/Information/FundData/GetIndustrySectorPieData?ticker=",
-	"GetCompositionPieData":"https://fondosonline.com/Information/FundData/GetCompositionPieData?ticker="
+    "GetFundsProducts":"https://fondosonline.com/Operations/Funds/GetFundsProducts",
+    "GetFundsProductsParams":"?sortColumn=YearPercent&isAscending=false&PageSize=1000&searchFundName=&searchCurrency=-1&searchFocus=-1&searchStrategy=&searchHorizon=-1&searchProfile=-1&isActive=false&searchMinInvestment=&page=1",
+    "GetPriceData":"https://fondosonline.com/Information/FundData/GetPriceData?ticker=",
+    "GetIndustryGroupPieData":"https://fondosonline.com/Information/FundData/GetIndustryGroupPieData?ticker=",
+    "GetIndustrySectorPieData":"https://fondosonline.com/Information/FundData/GetIndustrySectorPieData?ticker=",
+    "GetCompositionPieData":"https://fondosonline.com/Information/FundData/GetCompositionPieData?ticker="
 }
