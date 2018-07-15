@@ -6,7 +6,7 @@ import csv
 class Extractor:
 
     def ConseguirURL(self,pedido):
-        with open('urls.json') as f:
+        with open('configs/urls.json') as f:
             urls = json.load(f)
         return urls[pedido.nombre]
 
@@ -26,7 +26,7 @@ class Extractor:
 
     def extraer(self, pedido):
         url = self.ConseguirURL(pedido)
-        with open('PedidosaTickers.json') as f:
+        with open('configs/PedidosaTickers.json') as f:
             PedidosaTickers = json.load(f)
         if pedido.nombre in PedidosaTickers:
             with open('GetFundsProducts.csv','rt') as f:
@@ -46,8 +46,8 @@ class Extractor:
             df = pd.DataFrame.from_records(df)
             if df is not None:
                 print(str(len(df)) + ' filas')
-                print ('exportando a {0}.csv'.format(pedido.nombre))
-                df.to_csv('{0}.csv'.format(pedido.nombre), index=False)
+                print ('/exportando a {0}.csv'.format(pedido.nombre))
+                df.to_csv('output/{0}.csv'.format(pedido.nombre), index=False)
             else:
                 print ('error. df vacío')
         else:
@@ -58,6 +58,6 @@ class Extractor:
             if df is not None:
                 print(str(len(df)) + ' filas')
                 print ('exportando a {0}.csv'.format(pedido.nombre))
-                df.to_csv('{0}.csv'.format(pedido.nombre), index=False)
+                df.to_csv('output/{0}.csv'.format(pedido.nombre), index=False)
             else:
                 print ('error. df vacío')

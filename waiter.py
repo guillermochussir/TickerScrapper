@@ -1,14 +1,14 @@
 import json
 import sys
-from extractor import Extractor
-from pedido import Pedido
+from classes.extractor import Extractor
+from classes.pedido import Pedido
 
 def LlevarPedido(parametro,extractor):
     pedido = Pedido(parametro)
     extractor.extraer(pedido)
 
 if __name__ == '__main__':
-    with open('urls.json') as f:
+    with open('configs/urls.json') as f:
         NombresPedidos = json.load(f)
     if len(sys.argv) == 1:
         print ("Me podés pedir: {0}".format(list(NombresPedidos.keys())))
