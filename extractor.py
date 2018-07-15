@@ -31,24 +31,24 @@ class Extractor:
         if pedido.nombre in PedidosaTickers:
             with open('GetFundsProducts.csv','rt') as f:
                 reader = csv.reader(f)
-                next(reader)  # Skip header row
-                df = []
-                for row in reader:
-                    ticker = row[4]
-                    urlfinal = url + ticker
-                    fundValues = json.loads(self.request(urlfinal))
-                    fundValues = fundValues["fundValues"]
-                    for i in fundValues:
-                        i['ticker'] = ticker
-                    for i in fundValues:
-                        df.append(i)
-                df = pd.DataFrame.from_records(df)
-                if df is not None:
-                    print(str(len(df)) + ' filas')
-                    print ('exportando a {0}.csv'.format(pedido.nombre))
-                    df.to_csv('{0}.csv'.format(pedido.nombre), index=False)
-                else:
-                    print ('error. df vacío')
+            next(reader)  # Skip header row
+            df = []
+            for row in reader:
+                ticker = row[4]
+                urlfinal = url + ticker
+                fundValues = json.loads(self.request(urlfinal))
+                fundValues = fundValues["fundValues"]
+                for i in fundValues:
+                    i['ticker'] = ticker
+                for i in fundValues:
+                    df.append(i)
+            df = pd.DataFrame.from_records(df)
+            if df is not None:
+                print(str(len(df)) + ' filas')
+                print ('exportando a {0}.csv'.format(pedido.nombre))
+                df.to_csv('{0}.csv'.format(pedido.nombre), index=False)
+            else:
+                print ('error. df vacío')
         else:
             records = json.loads(self.request(url))
 
