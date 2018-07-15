@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import json
 import csv
+import os.path
 
 class Extractor:
 
@@ -24,12 +25,25 @@ class Extractor:
                 else:
                     print ('tercer error.')
 
+    def exportar(self,df,pedido):
+        df = pd.DataFrame.from_records(df)
+        if df is not None:
+            print(str(len(df)) + ' filas')
+            print ('exportando a {0}.csv'.format(pedido.nombre))
+            df.to_csv('output/{0}.csv'.format(pedido.nombre), index=False)
+        else:
+            print ('error. df vacío')
+
     def extraer(self, pedido):
         url = self.ConseguirURL(pedido)
         with open('configs/PedidosaTickers.json') as f:
             PedidosaTickers = json.load(f)
         if pedido.nombre in PedidosaTickers:
-            with open('GetFundsProducts.csv','rt') as f:
+            if os.path.isfile("output/GetFundsProducts.csv") == False:
+                print ("output/GetFundsProducts.csv not found")
+                print ("Para generar GetFundsProducts.csv, ejecutar waiter.py GetFundsProducts")
+                exit()
+            with open('output/GetFundsProducts.csv','rt') as f:
                 reader = csv.reader(f)
                 next(reader)  # Skip header row
                 df = []
@@ -43,21 +57,9 @@ class Extractor:
                         i['ticker'] = ticker
                     for i in fundValues:
                         df.append(i)
-            df = pd.DataFrame.from_records(df)
-            if df is not None:
-                print(str(len(df)) + ' filas')
-                print ('/exportando a {0}.csv'.format(pedido.nombre))
-                df.to_csv('output/{0}.csv'.format(pedido.nombre), index=False)
-            else:
-                print ('error. df vacío')
+            self.exportar(df,pedido)
         else:
             records = json.loads(self.request(url))
 
-            records = records["records"]
-            df = pd.DataFrame.from_records(records)
-            if df is not None:
-                print(str(len(df)) + ' filas')
-                print ('exportando a {0}.csv'.format(pedido.nombre))
-                df.to_csv('output/{0}.csv'.format(pedido.nombre), index=False)
-            else:
-                print ('error. df vacío')
+            df = records["records"]
+            self.exportar(df,pedido)
