@@ -54,7 +54,5 @@ class Crawler():
     
     def getPrices(self):
         funds = self.getFunds()
-        tickersList = funds['fundBloombergId']
-        tickersList = tickersList[tickersList != '0']
-        pricesList = [(t,self.getTicker(t)) for t in tickersList]
-        return pricesList
+        funds['pricesDF'] = [self.getTicker(t) for t in funds['fundBloombergId']]
+        return funds
